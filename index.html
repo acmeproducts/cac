@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Repo Redirect</title></head>
+<body style="font-family:system-ui,Segoe UI,Roboto,sans-serif;padding:20px">
+<script>
+(function(){
+  function p(v){if(!v)return null;v=v.trim().replace(/^https?:\/\//i,'').replace(/^www\./i,'');
+    var q=v.match(/(?:^|[?&])repo=([A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+)/);if(q)return q[1];
+    var m=v.match(/^github\.com\/([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)/i);if(m)return m[1]+'/'+m[2];
+    m=v.match(/^github\.([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)/i);if(m)return m[1]+'/'+m[2];
+    m=v.match(/^([A-Za-z0-9_.-]+)\.github\.io\/([A-Za-z0-9_.-]+)/i);if(m)return m[1]+'/'+m[2];
+    m=v.match(/^([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)/);if(m)return m[1]+'/'+m[2];return null;}
+  var u=new URL(location.href),r=p(u.searchParams.get('repo'))||p(u.host+u.pathname)||p(u.pathname.slice(1));
+  if(!r){document.body.innerHTML='<h2>Enter repo</h2><input id="i" placeholder="owner/repo"><button id="b">Go</button>';document.getElementById('b').onclick=function(){var x=p(document.getElementById('i').value);if(x)location.href='https://'+x.split('/')[0]+'.github.io/'+x.split('/')[1]+'/repolist.html';};return;}
+  var s=r.split('/');location.replace('https://'+s[0]+'.github.io/'+s[1]+'/repolist.html');
+})();
+</script></body></html>
